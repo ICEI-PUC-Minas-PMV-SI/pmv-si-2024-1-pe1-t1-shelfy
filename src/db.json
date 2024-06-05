@@ -1,40 +1,4 @@
 {
-  "books": [
-    {
-      "id": "c649",
-      "titulo": "b",
-      "tags": "",
-      "autor": "1",
-      "data": "2024-05-31",
-      "shelfy": "Português",
-      "status": "Andamento"
-    },
-    {
-      "id": "89b4",
-      "titulo": "b",
-      "tags": "b",
-      "autor": "b",
-      "data": "2024-06-14",
-      "shelfy": "Português",
-      "status": "Andamento"
-    },
-    {
-      "id": "5bf5",
-      "titulo": "a",
-      "tags": null,
-      "autor": "b",
-      "data": "2024-05-30",
-      "shelfy": "Matemática",
-      "status": "NaoIniciado"
-    },
-    {
-      "id": "c171",
-      "titulo": "a",
-      "tags": null,
-      "autor": "a",
-      "data": "2024-05-30",
-      "shelfy": "Matemática",
-      "status": "Completo"
-    }
-  ]
+  "books": [],
+  "estantes": []
 }
