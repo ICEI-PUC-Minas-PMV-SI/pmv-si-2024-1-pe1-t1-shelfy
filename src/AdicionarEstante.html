@@ -36,7 +36,7 @@
             </tr> <br>
             <tr>
                 <label>Tags</label> <br>
-                <input type="text" id="tags" >
+                <input type="text" id="tags">
             </tr> <br>
             <tr>
                 <label>Tema</label> <br>
@@ -53,11 +53,14 @@
                     <option>A Mão e a Luva</option>
                     <option>Memórias Póstumas de Brás Cubas</option>
                 </select>
+            </tr> <br>
+            <tr>
+                <label>Imagem da Estante</label> <br>
+                <input type="file" id="imagem" accept="image/*">
             </tr> <br> <br>
             <tr>
                 <button type="button" onclick="window.location.href='PaginaInicial.html'">Voltar</button>
                 <button type="button" onclick="submitShelfy()">Concluído</button>
-
             </tr>
         </form>
     </div>
@@ -66,7 +69,7 @@
         <form>
             <tr> <br>
                 <h1>Nova Shelfy</h1> 
-                <img src="../imagem/foto_livro.jpg" alt="Capa do Livro">
+                <img id="imagem-preview" src="../imagem/foto_livro.jpg" alt="Capa do Livro">
             </tr> <br>
         </form>
     </div>
@@ -87,34 +90,84 @@
             const tema = document.getElementById('tema').value || null;
             const data = document.getElementById('data').value || null;
             const livros = Array.from(document.getElementById('livros').selectedOptions).map(option => option.value);
+            const imagemInput = document.getElementById('imagem');
+            const imagemFile = imagemInput.files[0];
 
-            // Cria um objeto para a estante
-            const estante = {
-                shelfy,
-                tags,
-                tema,
-                data,
-                livros
+            const reader = new FileReader();
+            reader.onloadend = function () {
+                const imagemBase64 = reader.result;
+
+                // Cria um objeto para a estante
+                const estante = {
+                    shelfy,
+                    tags,
+                    tema,
+                    data,
+                    livros,
+                    imagem: imagemBase64
+                };
+
+                // Envia os dados para o JSON Server
+                fetch('http://localhost:3000/estantes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(estante)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    alert('Estante adicionada com sucesso!');
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('Erro ao adicionar a estante.');
+                });
             };
 
-            // Envia os dados para o JSON Server
-            fetch('http://localhost:3000/estantes', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(estante)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                alert('Estante adicionada com sucesso!');
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('Erro ao adicionar a estante.');
-            });
+            if (imagemFile) {
+                reader.readAsDataURL(imagemFile);
+            } else {
+                // Caso não haja imagem
+                const estante = {
+                    shelfy,
+                    tags,
+                    tema,
+                    data,
+                    livros,
+                    imagem: null
+                };
+
+                fetch('http://localhost:3000/estantes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(estante)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    alert('Estante adicionada com sucesso!');
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('Erro ao adicionar a estante.');
+                });
+            }
         }
+
+        document.getElementById('imagem').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                document.getElementById('imagem-preview').src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        });
     </script>
 </body>
 </html>
