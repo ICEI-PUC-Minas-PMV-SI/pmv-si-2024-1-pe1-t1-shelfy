@@ -47,14 +47,22 @@
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
 
-      fetch(`http://localhost:3000/usuarios?email=${email}&senha=${password}`)
+      fetch(`http://localhost:3000/usuarios?email=${email}`)
         .then(response => response.json())
         .then(users => {
           if (users.length > 0) {
-            alert('Login bem-sucedido!');
-            window.location.href = 'ProcuraLivro.html'; // Redireciona para a página inicial após o login
+            const user = users[0]; // Assume que só há um usuário com o email fornecido
+
+            // Verifica se a senha fornecida corresponde à senha do usuário encontrado
+            if (user.senha === password) {
+              alert('Login bem-sucedido!');
+              window.location.href = 'ProcuraLivro.html'; // Redireciona para a página inicial após o login
+            } else {
+              alert('Senha incorreta!');
+              document.getElementById('password').value = "";
+            }
           } else {
-            alert('Email ou senha incorretos!');
+            alert('Email não encontrado!');
             document.getElementById('email').value = "";
             document.getElementById('password').value = "";
           }
