@@ -9,57 +9,61 @@
     <title>Shelfy</title>
 </head>
 <body>
-
   <ul class="nav justify-content-end">
     <li class="nav-item">
-      <a class="nav-link active" href="#">Pagina Inicial</a>
+      <a class="nav-link active" href="PaginaInicial.html">Pagina Inicial</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Pesquisar Livros</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Sobre nós</a>
-    </li>
-    <li class="nav-item">
-      
       <a class="navbar-brand" href="#">
         <i class="bi bi-person-circle"></i>
       </a>
-      
-      
     </li>
   </ul>
 
-<br></br>
-<br></br>
-<br></br>
+  <br><br><br>
 
-  <form>
+  <form id="login-form">
     <div class="form-group">
         <h1>Login</h1>
-        <br></br>
-      <label for="exampleInputEmail1">Endereço de E-mail</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <br>
+      <label for="email">Endereço de E-mail</label>
+      <input type="email" class="form-control" id="email" required>
     </div>
     <div class="form-group">
-      <label for="exampleInputPassword1">Senha</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
+      <label for="password">Senha</label>
+      <input type="password" class="form-control" id="password" required>
     </div>
     <div class="form-group form-check">
-      <br></br>
-      <button type="submit" class="btn btn-primary" id = "username">Fazer Login</button>
-      
+      <br>
+      <button type="button" class="btn btn-primary" onclick="login()">Fazer Login</button>
       <button type="button" class="btn btn-primary" onclick="window.location.href='Cadastrar.html'">Criar conta</button>
-      <!--<a href="#" class="badge badge-light" href="#" class="stretched-link">Cadastrar</a></a><!-->
     </div>
-    
   </form>
 
-<br></br>
-<br></br>
-<br></br>
+  <br><br><br>
 
-  
-    
+  <script>
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      fetch(`http://localhost:3000/usuarios?email=${email}&senha=${password}`)
+        .then(response => response.json())
+        .then(users => {
+          if (users.length > 0) {
+            alert('Login bem-sucedido!');
+            window.location.href = 'ProcuraLivro.html'; // Redireciona para a página inicial após o login
+          } else {
+            alert('Email ou senha incorretos!');
+            document.getElementById('email').value = "";
+            document.getElementById('password').value = "";
+          }
+        })
+        .catch(error => {
+          console.error('Erro:', error);
+          alert('Erro ao fazer login.');
+        });
+    }
+  </script>
 </body>
 </html>

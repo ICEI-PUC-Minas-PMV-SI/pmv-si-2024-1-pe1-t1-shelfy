@@ -12,13 +12,7 @@
 
   <ul class="nav justify-content-end">
     <li class="nav-item">
-      <a class="nav-link active" href="#">Pagina Inicial</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Pesquisar Livros</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Sobre nós</a>
+      <a class="nav-link active" href="PaginaInicial.html">Pagina Inicial</a>
     </li>
     <li class="nav-item">
       
@@ -76,6 +70,7 @@
         .then(data => {
             console.log('Success:', data);
             alert('Usuário cadastrado com sucesso!');
+            window.location.href = 'Login.html';
         })
         .catch((error) => {
             console.error('Error:', error);
