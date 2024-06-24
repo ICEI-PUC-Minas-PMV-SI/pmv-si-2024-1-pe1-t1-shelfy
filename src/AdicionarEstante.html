@@ -12,18 +12,7 @@
     <header>
         <ul class="nav justify-content-end">
             <li class="nav-item">
-                <a class="nav-link active" href="#">Pagina Inicial</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pesquisar Livros</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Sobre nós</a>
-            </li>
-            <li class="nav-item">
-                <a class="navbar-brand" href="#">
-                    <i class="bi bi-person-circle"></i>
-                </a>
+                <a class="nav-link active" href="ProcuraLivro.html">Pagina Inicial</a>
             </li>
         </ul>
     </header>
@@ -40,7 +29,7 @@
             </tr> <br>
             <tr>
                 <label>Tema</label> <br>
-                <input type="text" id="tema" required>
+                <input type="text" id="tema">
             </tr> <br>
             <tr>
                 <label>Data</label> <br>
@@ -48,18 +37,19 @@
             </tr> <br>      
             <tr>
                 <label>Adicionar Livros</label> <br>
-                <select name="livros" id="livros" multiple required>
-                    <option>A Arte da Guerra</option>
-                    <option>A Mão e a Luva</option>
-                    <option>Memórias Póstumas de Brás Cubas</option>
+                <select name="livros" id="livros" multiple>
+
                 </select>
+                <input type="hidden" id="book-id" name="book-id">
+
+
             </tr> <br>
             <tr>
                 <label>Imagem da Estante</label> <br>
                 <input type="file" id="imagem" accept="image/*">
             </tr> <br> <br>
             <tr>
-                <button type="button" onclick="window.location.href='PaginaInicial.html'">Voltar</button>
+                <button type="button" onclick="window.location.href='ProcuraLivro.html'">Voltar</button>
                 <button type="button" onclick="submitShelfy()">Concluído</button>
             </tr>
         </form>
@@ -75,6 +65,24 @@
     </div>
 
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+            fetch('http://localhost:3000/books')
+                .then(response => response.json())
+                .then(books => {
+                    const selectBook = document.getElementById('livros');
+
+                    books.forEach(book => {
+                        const option = document.createElement('option');
+                        option.value = book.id; // Armazena o ID da estante como valor da opção
+                        option.textContent = book.titulo;
+                        selectBook.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Erro ao carregar os livros:', error));
+        });
+
+
+
         function submitShelfy() {
             const form = document.getElementById('shelfy-form');
             
