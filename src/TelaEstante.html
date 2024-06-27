@@ -12,14 +12,9 @@
 
   <ul class="nav justify-content-end">
     <li class="nav-item">
-      <a class="nav-link active" href="#">Página Inicial</a>
+      <a class="nav-link active" href="ProcuraLivro.html">Página Inicial</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Pesquisar Livros</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Sobre nós</a>
-    </li>
+
     <li class="nav-item">
       <a class="navbar-brand" href="#">
         <i class="bi bi-person-circle"></i>
@@ -36,38 +31,25 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const urlParams = new URLSearchParams(window.location.search);
-      const estanteId = urlParams.get('id'); 
+      const shelfyId = urlParams.get('id'); 
 
-      fetch('http://localhost:3000/estantes')
+      // Verificar se shelfyId é nulo ou vazio
+      if (!shelfyId) {
+          console.error('ID da estante não encontrado na URL.');
+          return; // Encerra a execução da função caso shelfyId seja nulo
+      }
+
+      fetch(`http://localhost:3000/books?shelfy=${shelfyId}`)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Erro ao carregar os dados das estantes. Status: ' + response.status);
+                throw new Error('Erro ao carregar os dados dos livros. Status: ' + response.status);
             }
             return response.json();
         })
-        .then(estantes => {
-            console.log('Dados das estantes:', estantes); // Verifique os dados recebidos no console
+        .then(livros => {
+            // Filtrar os livros onde shelfy não é null
+            const livrosFiltrados = livros.filter(livro => livro.shelfy !== null);
 
-            // Encontrar a estante com o id específico
-            const estante = estantes.find(e => e.id === estanteId);
-            if (!estante) {
-                throw new Error(`Estante com id=${estanteId} não encontrada.`);
-            }
-
-            // Obter os livros da estante encontrada
-            return fetch('http://localhost:3000/books')
-                      .then(response => {
-                          if (!response.ok) {
-                              throw new Error('Erro ao carregar os dados dos livros. Status: ' + response.status);
-                          }
-                          return response.json();
-                      })
-                      .then(livros => {
-                          console.log('Dados recebidos:', livros); // Verifique os dados recebidos no console
-                          return livros.filter(l => estante.livros.includes(l.id)); // Filtrar os livros pela estante encontrada
-                      });
-        })
-        .then(livrosFiltrados => {
             const booksContainer = document.getElementById('books-container');
 
             // Verificar se há livros a serem exibidos
@@ -91,7 +73,7 @@
                     booksContainer.insertAdjacentHTML('beforeend', bookCard);
                 });
             } else {
-                console.error('Nenhum livro encontrado para a estante com id=' + estanteId);
+                console.error('Nenhum livro encontrado para a estante com id=' + shelfyId);
             }
         })
         .catch(error => console.error('Erro ao carregar dados:', error));
