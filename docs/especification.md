@@ -43,7 +43,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RF-001|	Permitir que os usuários adicionem livros à sua biblioteca pessoal, inserindo informações como título, autor, gênero, data de leitura, classificação, entre outros.|	ALTA
 |RF-002|	Permitir que os usuários organizem seus livros em diferentes categorias, como lidos, em andamento, desejados, favoritos, etc.	|ALTA
 |RF-003|	Oferecer uma função de busca que permita aos usuários encontrar livros por título, autor, gênero, ou outras categorias relevantes.|	MÉDIA
-|RF-004|	Basear recomendações de livros em preferências de leitura do usuário, histórico de leitura e avaliações de outros usuários.	|ALTA
+|RF-004|	Basear recomendações de livros em preferências de leitura do usuário, histórico de leitura e avaliações de outros usuários.	|MÉDIA
 |RF-005|	Permitir que os usuários avaliem e escrevam resenhas sobre os livros que leram, compartilhando suas opiniões com a comunidade.|	MÉDIA
 |RF-006|	Permitir que os usuários exportem seus dados de leitura, incluindo listas de livros, resenhas e estatísticas, para outros formatos ou plataformas.|	MÉDIA
 
