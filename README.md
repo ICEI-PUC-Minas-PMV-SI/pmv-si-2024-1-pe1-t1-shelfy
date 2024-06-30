@@ -6,16 +6,12 @@
 
 `SEMESTRE: 1º`
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+Shelfy é uma aplicação web que permite aos usuários gerenciar seus livros de maneira organizada e eficiente. O sistema oferece uma interface intuitiva para cadastrar, visualizar, editar e excluir livros, além de organizar esses livros em estantes distintas. A ideia principal é fornecer uma maneira fácil e eficiente de manter uma biblioteca pessoal ou compartilhada, possibilitando que os usuários encontrem e administrem seus livros de forma prática.
 
 ## Integrantes
 
 * Pedro Henrique Barroso Ribeiro dos Santos
-* João Felipe Dias Souza
-* Márcia Sant´ Anna Parreira
 * Saulo de Tarso Moras Ribeiro
-* João Pedro Moraes Silva
-* Tiago Atahualpa Hermoza Menezes
 
 ## Orientador
 
